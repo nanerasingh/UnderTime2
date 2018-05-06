@@ -10,11 +10,12 @@
 - (void)setText:(NSString *)text {
 	if([text containsString:@":"]) {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		dateFormatter.dateStyle = NSDateFormatterShortStyle;
+		// dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+		[dateFormatter setDateFormat:@"dd/MM"];
+		//dateFormatter.dateStyle = dd/MM/yyyy;
 		NSDate *now = [NSDate date];
 		NSString *shortDate = [dateFormatter stringFromDate:now];
-		shortDate = [shortDate substringToIndex:[shortDate length]-3];
+		shortDate = [shortDate substringToIndex:[shortDate length]];
 		NSString *newString = [NSString stringWithFormat:@"%@\n%@", text, shortDate];
 		self.numberOfLines = 2;
 		self.textAlignment = 1;
