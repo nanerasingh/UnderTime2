@@ -1,3 +1,5 @@
+#import "important.h"
+
 @interface _UIStatusBarStringView : UIView
 @property (copy) NSString *text;
 @property NSInteger numberOfLines;
@@ -9,9 +11,13 @@
 
 - (void)setText:(NSString *)text {
 	if([text containsString:@":"]) {
+		%orig;
+		if(GetPrefBool(@"Enable")) {
+		NSString *key = @"key";
+		NSString *dformat = [[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.mpg13.UnderTime.plist"] valueForKey:key];
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		// dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		[dateFormatter setDateFormat:@"d/M"];
+		[dateFormatter setDateFormat:dformat];
 		//dateFormatter.dateStyle = dd/MM/yyyy;
 		NSDate *now = [NSDate date];
 		NSString *shortDate = [dateFormatter stringFromDate:now];
@@ -21,6 +27,7 @@
 		self.textAlignment = 1;
 		[self setFont: [self.font fontWithSize:12]];
 		%orig(newString);
+		}
 	}
 	else {
 		%orig(text);
@@ -37,10 +44,14 @@
 %hook _UIStatusBarTimeItem
 
 - (id)applyUpdate:(id)arg1 toDisplayItem:(id)arg2 {
+	%orig;
+	if(GetPrefBool(@"Enable")) {
 	id returnThis = %orig;
 	[self.shortTimeView setFont: [self.shortTimeView.font fontWithSize:12]];
 	[self.pillTimeView setFont: [self.pillTimeView.font fontWithSize:12]];
 	return returnThis;
+	}
+return 0;
 }
 
 %end
@@ -52,10 +63,13 @@
 %hook _UIStatusBarBackgroundActivityView
 
 - (void)setCenter:(CGPoint)point {
+	%orig;
+	if(GetPrefBool(@"Enable")) {
 	point.y = 11;
 	self.frame = CGRectMake(0, 0, self.frame.size.width, 31);
 	self.pulseLayer.frame = CGRectMake(0, 0, self.frame.size.width, 31);
 	%orig(point);
+	}
 }
 
 %end
