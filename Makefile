@@ -1,3 +1,6 @@
+ARCHS = arm64
+TARGET = iphone:clang:latest
+
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = DateUnderTimeX

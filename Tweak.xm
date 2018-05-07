@@ -11,7 +11,7 @@
 	if([text containsString:@":"]) {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		// dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-		[dateFormatter setDateFormat:@"dd/MM"];
+		[dateFormatter setDateFormat:@"d/M"];
 		//dateFormatter.dateStyle = dd/MM/yyyy;
 		NSDate *now = [NSDate date];
 		NSString *shortDate = [dateFormatter stringFromDate:now];
