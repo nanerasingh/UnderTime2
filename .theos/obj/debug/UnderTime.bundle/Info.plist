@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>UnderTime</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.mpg13.UnderTime</string>
+	<string>com.mpg13.undertime</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSPrincipalClass</key>
-	<string>UnderTimeRootListController</string>
+	<string>udtRootListController</string>
 </dict>
 </plist>

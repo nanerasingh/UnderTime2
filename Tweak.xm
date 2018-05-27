@@ -13,8 +13,7 @@
 	if([text containsString:@":"]) {
 		%orig;
 		if(GetPrefBool(@"Enable")) {
-		NSString *key = @"key";
-		NSString *dformat = [[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.mpg13.UnderTime.plist"] valueForKey:key];
+		NSString *dformat = GetPrefString(@"dformat");
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		// dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 		[dateFormatter setDateFormat:dformat];

@@ -29,7 +29,7 @@
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class _UIStatusBarBackgroundActivityView; @class _UIStatusBarStringView; @class _UIStatusBarTimeItem; 
+@class _UIStatusBarStringView; @class _UIStatusBarBackgroundActivityView; @class _UIStatusBarTimeItem; 
 static void (*_logos_orig$_ungrouped$_UIStatusBarStringView$setText$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static id (*_logos_orig$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static id _logos_method$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); static void _logos_method$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); 
 
 #line 10 "Tweak.xm"
@@ -39,8 +39,7 @@ static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF
 	if([text containsString:@":"]) {
 		_logos_orig$_ungrouped$_UIStatusBarStringView$setText$(self, _cmd, text);
 		if(GetPrefBool(@"Enable")) {
-		NSString *key = @"key";
-		NSString *dformat = [[NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.mpg13.UnderTime.plist"] valueForKey:key];
+		NSString *dformat = GetPrefString(@"dformat");
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		
 		[dateFormatter setDateFormat:dformat];
@@ -101,4 +100,4 @@ static void _logos_method$_ungrouped$_UIStatusBarBackgroundActivityView$setCente
 
 static __attribute__((constructor)) void _logosLocalInit() {
 {Class _logos_class$_ungrouped$_UIStatusBarStringView = objc_getClass("_UIStatusBarStringView"); MSHookMessageEx(_logos_class$_ungrouped$_UIStatusBarStringView, @selector(setText:), (IMP)&_logos_method$_ungrouped$_UIStatusBarStringView$setText$, (IMP*)&_logos_orig$_ungrouped$_UIStatusBarStringView$setText$);Class _logos_class$_ungrouped$_UIStatusBarTimeItem = objc_getClass("_UIStatusBarTimeItem"); MSHookMessageEx(_logos_class$_ungrouped$_UIStatusBarTimeItem, @selector(applyUpdate:toDisplayItem:), (IMP)&_logos_method$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$, (IMP*)&_logos_orig$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$);Class _logos_class$_ungrouped$_UIStatusBarBackgroundActivityView = objc_getClass("_UIStatusBarBackgroundActivityView"); MSHookMessageEx(_logos_class$_ungrouped$_UIStatusBarBackgroundActivityView, @selector(setCenter:), (IMP)&_logos_method$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$, (IMP*)&_logos_orig$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$);} }
-#line 76 "Tweak.xm"
+#line 75 "Tweak.xm"

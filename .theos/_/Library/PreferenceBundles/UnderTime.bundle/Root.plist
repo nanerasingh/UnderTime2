@@ -4,64 +4,49 @@
 <dict>
 	<key>items</key>
 	<array>
-<dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>footerCellClass</key>
-			<string>UnderTimeCustomCell</string>
+			<key>label</key>
+			<string>UnderTime Settings</string>
 		</dict>
-<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-                <dict>
+		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<false/>
+			<true/>
 			<key>defaults</key>
-			<string>com.mpg13.UnderTime</string>
+			<string>com.mpg13.undertime</string>
 			<key>key</key>
 			<string>Enable</string>
 			<key>label</key>
-			<string>Enable</string>
+			<string>Enable tweak</string>
 		</dict>
+		
 		<dict>
 			<key>cell</key>
 			<string>PSEditTextCell</string>
 			<key>default</key>
 			<string>d/M</string>
 			<key>defaults</key>
-			<string>com.mpg13.UnderTime</string>
+			<string>com.mpg13.undertime</string>
 			<key>key</key>
 			<string>dformat</string>
-			<key>showValue</key>
-			<true/>
 		</dict>
-<dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Forked from NeinZedd's "DateUnderTimeX". Thank him for his work!</string>
 		</dict>
-<dict>
+		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-<key>footerText</key>
-<string>Updated by /u/-mpg13- || Original code by /u/NeinZedd9</string>
-<key>footerAlignment</key>
-<integer>1</integer>
+			<key>label</key>
+			<string>Use nsdateformatter.com to help you format your date!</string>
 		</dict>
-<dict>
-<key>action</key>
-<string>respring</string>
-<key>height</key>
-<string>38</string>
-<key>cell</key>
-<string>PSButtonCell</string>
-<key>label</key>
-<string>Respring</string>
-</dict>
 	</array>
 	<key>title</key>
-	<string></string>
+	<string>UnderTime</string>
 </dict>
 </plist>
