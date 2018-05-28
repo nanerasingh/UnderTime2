@@ -7,25 +7,30 @@
 @property NSInteger textAlignment;
 @end
 
+int sizeOfFont = GetPrefInt(@"sizeOfFont");
+	
 %hook _UIStatusBarStringView
 
 - (void)setText:(NSString *)text {
-	if([text containsString:@":"]) {
+	if(GetPrefBool(@"Enable")) {
 		%orig;
-		if(GetPrefBool(@"Enable")) {
+		
 		NSString *dformat = GetPrefString(@"dformat");
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		// dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
 		[dateFormatter setDateFormat:dformat];
-		//dateFormatter.dateStyle = dd/MM/yyyy;
 		NSDate *now = [NSDate date];
 		NSString *shortDate = [dateFormatter stringFromDate:now];
 		shortDate = [shortDate substringToIndex:[shortDate length]];
 		NSString *newString = [NSString stringWithFormat:@"%@\n%@", text, shortDate];
-		self.numberOfLines = 2;
-		self.textAlignment = 1;
-		[self setFont: [self.font fontWithSize:12]];
-		%orig(newString);
+		
+		[self setFont: [self.font fontWithSize:sizeOfFont]];
+		if(GetPrefBool(@"replaceTime")){
+			%orig(shortDate);
+		}
+		else{
+			self.textAlignment = 1;
+			self.numberOfLines = 2;
+			%orig(newString);
 		}
 	}
 	else {
@@ -46,8 +51,8 @@
 	%orig;
 	if(GetPrefBool(@"Enable")) {
 	id returnThis = %orig;
-	[self.shortTimeView setFont: [self.shortTimeView.font fontWithSize:12]];
-	[self.pillTimeView setFont: [self.pillTimeView.font fontWithSize:12]];
+	[self.shortTimeView setFont: [self.shortTimeView.font fontWithSize:sizeOfFont]];
+	[self.pillTimeView setFont: [self.pillTimeView.font fontWithSize:sizeOfFont]];
 	return returnThis;
 	}
 return 0;
@@ -64,10 +69,14 @@ return 0;
 - (void)setCenter:(CGPoint)point {
 	%orig;
 	if(GetPrefBool(@"Enable")) {
-	point.y = 11;
-	self.frame = CGRectMake(0, 0, self.frame.size.width, 31);
-	self.pulseLayer.frame = CGRectMake(0, 0, self.frame.size.width, 31);
-	%orig(point);
+		if(GetPrefBool(@"replaceTime")){
+		}
+		else{
+			point.y = 11;
+			self.frame = CGRectMake(0, 0, self.frame.size.width, 31);
+			self.pulseLayer.frame = CGRectMake(0, 0, self.frame.size.width, 31);
+			%orig(point);
+		}
 	}
 }
 
