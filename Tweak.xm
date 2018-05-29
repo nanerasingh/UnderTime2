@@ -13,7 +13,7 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 %hook _UIStatusBarStringView
 
 - (void)setText:(NSString *)text {
-	if(GetPrefBool(@"Enable") && ![text containsString:@"%"]) {
+	if(GetPrefBool(@"Enable") && ![text containsString:@"%"] && ![text containsString:@"1x"] && ![text containsString:@"LTE"] && ![text containsString:@"4G"] && ![text containsString:@"3G"] && ![text containsString:@"2G"]) {
 		NSString *lineTwo = GetPrefString(@"lineTwo");
 		NSString *lineOne = GetPrefString(@"lineOne");
 		NSString *timeLineTwo = lineTwo;
