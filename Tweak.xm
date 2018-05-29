@@ -16,17 +16,17 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 	if(GetPrefBool(@"Enable") && ![text containsString:@"%"]) {
 		NSString *lineTwo = GetPrefString(@"lineTwo");
 		NSString *lineOne = GetPrefString(@"lineOne");
-		NSString *timeLineTwo;
-		NSString *timeLineOne;
+		NSString *timeLineTwo = lineTwo;
+		NSString *timeLineOne = lineOne;
 		
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		NSDate *now = [NSDate date];
-		if(!GetPrefBool(@"lineOneStandard")){
+		if(!GetPrefBool(@"lineTwoStandard")){
 		[dateFormatter setDateFormat:lineTwo];
 		timeLineTwo = [dateFormatter stringFromDate:now];
 		timeLineTwo = [timeLineTwo substringToIndex:[timeLineTwo length]];
 		}
-		if(!GetPrefBool(@"lineTwoStandard")){
+		if(!GetPrefBool(@"lineOneStandard")){
 		[dateFormatter setDateFormat:lineOne];
 		timeLineOne = [dateFormatter stringFromDate:now];
 		timeLineOne = [timeLineOne substringToIndex:[timeLineOne length]];

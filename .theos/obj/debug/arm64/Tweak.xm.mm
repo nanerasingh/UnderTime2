@@ -32,7 +32,7 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class _UIStatusBarBackgroundActivityView; @class _UIStatusBarStringView; @class _UIStatusBarTimeItem; 
+@class _UIStatusBarTimeItem; @class _UIStatusBarStringView; @class _UIStatusBarBackgroundActivityView; 
 static void (*_logos_orig$_ungrouped$_UIStatusBarStringView$setText$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static id (*_logos_orig$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static id _logos_method$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); static void _logos_method$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); 
 
 #line 13 "Tweak.xm"
@@ -42,17 +42,17 @@ static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF
 	if(GetPrefBool(@"Enable") && ![text containsString:@"%"]) {
 		NSString *lineTwo = GetPrefString(@"lineTwo");
 		NSString *lineOne = GetPrefString(@"lineOne");
-		NSString *timeLineTwo;
-		NSString *timeLineOne;
+		NSString *timeLineTwo = lineTwo;
+		NSString *timeLineOne = lineOne;
 		
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		NSDate *now = [NSDate date];
-		if(!GetPrefBool(@"lineOneStandard")){
+		if(!GetPrefBool(@"lineTwoStandard")){
 		[dateFormatter setDateFormat:lineTwo];
 		timeLineTwo = [dateFormatter stringFromDate:now];
 		timeLineTwo = [timeLineTwo substringToIndex:[timeLineTwo length]];
 		}
-		if(!GetPrefBool(@"lineTwoStandard")){
+		if(!GetPrefBool(@"lineOneStandard")){
 		[dateFormatter setDateFormat:lineOne];
 		timeLineOne = [dateFormatter stringFromDate:now];
 		timeLineOne = [timeLineOne substringToIndex:[timeLineOne length]];
