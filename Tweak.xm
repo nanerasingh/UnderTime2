@@ -41,7 +41,7 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 
 		[self setFont: [self.font fontWithSize:sizeOfFont]];
 		if(GetPrefBool(@"replaceTime")){
-			%orig(timeLineTwo);
+			%orig(timeLineOne);
 		}
 		else{
 			self.textAlignment = 1;

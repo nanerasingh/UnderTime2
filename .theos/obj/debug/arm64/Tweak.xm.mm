@@ -32,7 +32,7 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 #define _LOGOS_RETURN_RETAINED
 #endif
 
-@class _UIStatusBarTimeItem; @class _UIStatusBarStringView; @class _UIStatusBarBackgroundActivityView; 
+@class _UIStatusBarBackgroundActivityView; @class _UIStatusBarStringView; @class _UIStatusBarTimeItem; 
 static void (*_logos_orig$_ungrouped$_UIStatusBarStringView$setText$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarStringView* _LOGOS_SELF_CONST, SEL, NSString *); static id (*_logos_orig$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static id _logos_method$_ungrouped$_UIStatusBarTimeItem$applyUpdate$toDisplayItem$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarTimeItem* _LOGOS_SELF_CONST, SEL, id, id); static void (*_logos_orig$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$)(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); static void _logos_method$_ungrouped$_UIStatusBarBackgroundActivityView$setCenter$(_LOGOS_SELF_TYPE_NORMAL _UIStatusBarBackgroundActivityView* _LOGOS_SELF_CONST, SEL, CGPoint); 
 
 #line 13 "Tweak.xm"
@@ -67,7 +67,7 @@ static void _logos_method$_ungrouped$_UIStatusBarStringView$setText$(_LOGOS_SELF
 
 		[self setFont: [self.font fontWithSize:sizeOfFont]];
 		if(GetPrefBool(@"replaceTime")){
-			_logos_orig$_ungrouped$_UIStatusBarStringView$setText$(self, _cmd, timeLineTwo);
+			_logos_orig$_ungrouped$_UIStatusBarStringView$setText$(self, _cmd, timeLineOne);
 		}
 		else{
 			self.textAlignment = 1;
