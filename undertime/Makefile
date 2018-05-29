@@ -4,7 +4,7 @@ TARGET = iphone:clang:latest
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = UnderTime
-UnderTime_FILES = UnderTimeRootListController.m
+UnderTime_FILES = udtRootListController.m
 UnderTime_INSTALL_PATH = /Library/PreferenceBundles
 UnderTime_FRAMEWORKS = UIKit
 UnderTime_PRIVATE_FRAMEWORKS = Preferences

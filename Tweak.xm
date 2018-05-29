@@ -1,4 +1,5 @@
 #import "important.h"
+#import <spawn.h>
 
 @interface _UIStatusBarStringView : UIView
 @property (copy) NSString *text;
@@ -12,20 +13,35 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 %hook _UIStatusBarStringView
 
 - (void)setText:(NSString *)text {
-	if(GetPrefBool(@"Enable")) {
-		%orig;
+	if(GetPrefBool(@"Enable") && ![text containsString:@"%"]) {
+		NSString *lineTwo = GetPrefString(@"lineTwo");
+		NSString *lineOne = GetPrefString(@"lineOne");
+		NSString *timeLineTwo;
+		NSString *timeLineOne;
 		
-		NSString *dformat = GetPrefString(@"dformat");
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		[dateFormatter setDateFormat:dformat];
 		NSDate *now = [NSDate date];
-		NSString *shortDate = [dateFormatter stringFromDate:now];
-		shortDate = [shortDate substringToIndex:[shortDate length]];
-		NSString *newString = [NSString stringWithFormat:@"%@\n%@", text, shortDate];
-		
+		if(!GetPrefBool(@"lineOneStandard")){
+		[dateFormatter setDateFormat:lineTwo];
+		timeLineTwo = [dateFormatter stringFromDate:now];
+		timeLineTwo = [timeLineTwo substringToIndex:[timeLineTwo length]];
+		}
+		if(!GetPrefBool(@"lineTwoStandard")){
+		[dateFormatter setDateFormat:lineOne];
+		timeLineOne = [dateFormatter stringFromDate:now];
+		timeLineOne = [timeLineOne substringToIndex:[timeLineOne length]];
+		}
+		NSString *newString;
+		if(GetPrefBool(@"lineOneEnable")){
+		newString = [NSString stringWithFormat:@"%@\n%@", timeLineOne, timeLineTwo];
+		}
+		else{
+		newString = [NSString stringWithFormat:@"%@\n%@", text, timeLineTwo];
+		}
+
 		[self setFont: [self.font fontWithSize:sizeOfFont]];
 		if(GetPrefBool(@"replaceTime")){
-			%orig(shortDate);
+			%orig(timeLineTwo);
 		}
 		else{
 			self.textAlignment = 1;
@@ -46,16 +62,13 @@ int sizeOfFont = GetPrefInt(@"sizeOfFont");
 @end
 
 %hook _UIStatusBarTimeItem
-
 - (id)applyUpdate:(id)arg1 toDisplayItem:(id)arg2 {
-	%orig;
-	if(GetPrefBool(@"Enable")) {
 	id returnThis = %orig;
-	[self.shortTimeView setFont: [self.shortTimeView.font fontWithSize:sizeOfFont]];
-	[self.pillTimeView setFont: [self.pillTimeView.font fontWithSize:sizeOfFont]];
-	return returnThis;
+	if(GetPrefBool(@"Enable")) {
+		[self.shortTimeView setFont: [self.shortTimeView.font fontWithSize:sizeOfFont]];
+		[self.pillTimeView setFont: [self.pillTimeView.font fontWithSize:sizeOfFont]];
 	}
-return 0;
+	return returnThis;
 }
 
 %end
@@ -67,17 +80,14 @@ return 0;
 %hook _UIStatusBarBackgroundActivityView
 
 - (void)setCenter:(CGPoint)point {
-	%orig;
-	if(GetPrefBool(@"Enable")) {
-		if(GetPrefBool(@"replaceTime")){
-		}
-		else{
+	if(GetPrefBool(@"Enable") && !GetPrefBool(@"replaceTime")){
 			point.y = 11;
 			self.frame = CGRectMake(0, 0, self.frame.size.width, 31);
 			self.pulseLayer.frame = CGRectMake(0, 0, self.frame.size.width, 31);
 			%orig(point);
-		}
 	}
 }
+
+
 
 %end
